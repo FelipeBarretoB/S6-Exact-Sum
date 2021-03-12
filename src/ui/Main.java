@@ -56,6 +56,7 @@ public class Main {
 				ui.bw.write("\n");
 				ui.bw.flush();
 				print.add("Peter should buy books whose prices are "+i+" and "+j+".");
+				ui.br.readLine();
 				first= ui.br.readLine();
 			}
 			for(int c=0;c <print.size();c++) {
