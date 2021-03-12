@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -23,10 +24,11 @@ public class Main {
 		String[] bookArray;
 		int [] intBook;
 		int M=0;
-
+		ArrayList<String> print=new ArrayList<>();
 		try {
-			do {  
-				N= Integer.parseInt(ui.br.readLine());
+			String first= ui.br.readLine();
+			while(first !=null){  
+				N= Integer.parseInt(first);
 				book=ui.br.readLine();
 				bookArray=book.split(" ");
 				intBook= new int[N];
@@ -39,9 +41,9 @@ public class Main {
 				for(int c=0; c<intBook.length;c++) {
 					int x=intBook[c];
 					int y=M-x;
-					for( int z=1;z<N;z++) {
-						if(intBook[z]==y) {
-							if(i==0 && j==0) {
+					for( int z=0;z<N;z++) {
+						if(intBook[z]==y && z!=c) {
+							if(i==0 && j==0 ) {
 								i=x;
 								j=y;
 							}else if(Math.abs(i-j)>Math.abs(x-y)){
@@ -51,13 +53,18 @@ public class Main {
 						}
 					}
 				}
-					ui.bw.write("Peter should buy books whose prices are "+i+" and "+j+".\n");
-					ui.bw.newLine();
-					ui.bw.flush();
-				}while(ui.br.readLine() !=null);
-			} catch (IOException e) {
-				e.printStackTrace();
+				ui.bw.write("\n");
+				ui.bw.flush();
+				print.add("Peter should buy books whose prices are "+i+" and "+j+".");
+				first= ui.br.readLine();
 			}
+			for(int c=0;c <print.size();c++) {
+				ui.bw.write(print.get(c)+"\n \n");
+				ui.bw.flush();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-
 	}
+
+}
