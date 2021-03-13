@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
 
@@ -38,6 +39,10 @@ public class Main {
 				M= Integer.parseInt(ui.br.readLine());
 				int i=0;
 				int j=0;
+		
+				Arrays.sort(intBook);
+				
+				
 				for(int c=0; c<intBook.length;c++) {
 					int x=intBook[c];
 					int y=M-x;
@@ -55,8 +60,7 @@ public class Main {
 				}
 				ui.bw.write("\n");
 				ui.bw.flush();
-				print.add("Peter should buy books whose prices are "+i+" and "+j+".");
-				ui.br.readLine();
+				print.add("Peter should buy books whose prices are "+intBook[Arrays.binarySearch(intBook,i)]+" and "+intBook[Arrays.binarySearch(intBook,j)]+".");
 				first= ui.br.readLine();
 			}
 			for(int c=0;c <print.size();c++) {
