@@ -1,5 +1,3 @@
-package ui;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -26,46 +24,44 @@ public class Main {
 		int [] intBook;
 		int M=0;
 		ArrayList<String> print=new ArrayList<>();
-		
+
 		try {
 			String first= ui.br.readLine();
-			while(!first.equals("")){
-				
-					N= Integer.parseInt(first);
-					book=ui.br.readLine();
-					bookArray=book.split(" ");
-					intBook= new int[N];
-					for(int c=0; c<N;c++) {
-						intBook[c]=Integer.parseInt(bookArray[c]);
-					}
-					M= Integer.parseInt(ui.br.readLine());
-					int i=0;
-					int j=0;
+			while(ui.br.ready()){
 
-					Arrays.sort(intBook);
+				N= Integer.parseInt(first);
+				book=ui.br.readLine();
+				bookArray=book.split(" ");
+				intBook= new int[N];
+				for(int c=0; c<N;c++) {
+					intBook[c]=Integer.parseInt(bookArray[c]);
+				}
+				M= Integer.parseInt(ui.br.readLine());
+				int i=0;
+				int j=0;
 
-
-					for(int c=0; c<intBook.length;c++) {
-						int x=intBook[c];
-						int y=M-x;
-						for( int z=0;z<N;z++) {
-							if(intBook[z]==y && z!=c) {
-								if(i==0 && j==0 ) {
-									i=x;
-									j=y;
-								}else if(Math.abs(i-j)>Math.abs(x-y)){
-									i=x;
-									j=y;
-								}
+				Arrays.sort(intBook);
+				for(int c=0; c<intBook.length;c++) {
+					int x=intBook[c];
+					int y=M-x;
+					for( int z=0;z<N;z++) {
+						if(intBook[z]==y && z!=c) {
+							if(i==0 && j==0 ) {
+								i=x;
+								j=y;
+							}else if(Math.abs(i-j)>Math.abs(x-y)){
+								i=x;
+								j=y;
 							}
 						}
 					}
-
-					print.add("Peter should buy books whose prices are "+intBook[Arrays.binarySearch(intBook,i)]+" and "+intBook[Arrays.binarySearch(intBook,j)]+".");
-					ui.br.readLine();
-					first= ui.br.readLine();
 				}
-			
+
+				print.add("Peter should buy books whose prices are "+intBook[Arrays.binarySearch(intBook,i)]+" and "+intBook[Arrays.binarySearch(intBook,j)]+".");
+				ui.br.readLine();
+				first= ui.br.readLine();
+			}
+
 			for(int c=0;c <print.size();c++) {
 				ui.bw.write(print.get(c)+"\n");
 				ui.bw.newLine();
