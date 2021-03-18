@@ -3,73 +3,64 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
-
-	public BufferedReader br;
-	public BufferedWriter bw;
-
-	public Main() {
-		br= new BufferedReader(new InputStreamReader(System.in));
-		bw= new BufferedWriter(new OutputStreamWriter(System.out));
-	}
-	public static void main(String[] args) {
-
-		Main ui=new Main();
-		int N=0;
-		String book="";
-		String[] bookArray;
+	public static void main(String[] args) throws IOException {
+		BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw= new BufferedWriter(new OutputStreamWriter(System.out));
 		int [] intBook;
 		int M=0;
-		ArrayList<String> print=new ArrayList<>();
-
-		try {
-			String first= ui.br.readLine();
-			while(ui.br.ready()){
-
-				N= Integer.parseInt(first);
-				book=ui.br.readLine();
-				bookArray=book.split(" ");
-				intBook= new int[N];
-				for(int c=0; c<N;c++) {
-					intBook[c]=Integer.parseInt(bookArray[c]);
-				}
-				M= Integer.parseInt(ui.br.readLine());
-				int i=0;
-				int j=0;
-
-				Arrays.sort(intBook);
-				for(int c=0; c<intBook.length;c++) {
-					int x=intBook[c];
-					int y=M-x;
-					for( int z=0;z<N;z++) {
-						if(intBook[z]==y && z!=c) {
-							if(i==0 && j==0 ) {
-								i=x;
-								j=y;
-							}else if(Math.abs(i-j)>Math.abs(x-y)){
-								i=x;
-								j=y;
-							}
-						}
+		int x=0;
+		int y=0;
+		int a=0;
+		int b=0;
+		int pos=-1;
+		int diff=100000;
+		int i=0;
+		int j=0;
+		String[] bookArray;
+		br.readLine();
+		while(br.ready()){
+			
+			bookArray = br.readLine().split(" "); 
+			intBook= new int[bookArray.length];
+			for(int c=0;c<bookArray.length;c++) {
+				intBook[c]=Integer.parseInt(bookArray[c]);
+			}
+			M= Integer.parseInt(br.readLine());
+			i=0;
+			j=0;
+			Arrays.sort(intBook);
+			int mid=0;
+			diff=1000001;
+			for(int c=0; c<intBook.length;c++) {
+				x=intBook[c];
+				y=M-x;
+				a=0;
+				b=intBook.length-1;
+				pos=-1;
+				while(a <= b && pos == -1) {
+					mid=(a+b)/2;
+					if(mid!=c && intBook[mid]==y&&Math.abs(x-intBook[mid])<diff) {
+						i=x;
+						j=y;						
+						diff=Math.abs(x-intBook[mid]);
+						pos=mid;
+					}else if(intBook[mid]>y){
+						b=mid-1;
+					}else {  
+						a=mid+1;
 					}
 				}
-
-				print.add("Peter should buy books whose prices are "+intBook[Arrays.binarySearch(intBook,i)]+" and "+intBook[Arrays.binarySearch(intBook,j)]+".");
-				ui.br.readLine();
-				first= ui.br.readLine();
 			}
-
-			for(int c=0;c <print.size();c++) {
-				ui.bw.write(print.get(c)+"\n");
-				ui.bw.newLine();
-				ui.bw.flush();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+			bw.write("Peter should buy books whose prices are "+i+" and "+j+".\n");
+			bw.newLine();
+			br.readLine();
+			br.readLine();
 		}
+		bw.close();
+		br.close();
 	}
 
 }
